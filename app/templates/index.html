@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}">
+
+    <title>Py URL Shortener</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/custom.min.css')}}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Py URL Shortener</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">It's free and ALWAYS WILL BE!</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">SHORTEN. SHARE. MEASURE.</h1>
+            {# Start message part. This part wil be triggered only when there is some messages to show.#}
+            {%with messages = get_flashed_messages()%}
+            	{% if messages %}
+            		{% for message in messages %}
+		            	<div class="alert alert-danger alert-dismissible" role="alert">
+		  					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  					<p><span class="glyphicon glyphicon-alert" aria-hidden="true"></span><strong> Warning!</strong> {{message}}</p>
+						</div>
+					{% endfor %}
+            	{% endif %}
+            {% endwith %}
+            {# End message part.#}
+            <form class="lead" action="{{url_for('main.home')}}" method="POST" accept-charset="utf-8">
+            	{{ form.hidden_tag() }}
+            	<div class="form-group {% if form.long_url.errors %} has-error {% endif %}">
+            		{{ form.long_url(placeholder="Paste a link to shorten it", class="form-control") }}
+            	</div>
+            	<p class="lead">
+            		<input type="submit" name="submit" value="SHORTEN" class="btn btn-lg btn-default">
+            	</p>
+            </form>
+          </div>
+          <div class="row">
+			<div class="col-sm-2">
+		    </div>
+	        <div class="col-sm-8">
+	        	{# Start short URL part. This part wil be triggered only when there is a generated short URL to show.#}
+	            {%if short_url%}
+	            <div class="input-group  input-group-lg">
+	  				<input type="url" class="form-control" value="{{short_url}}" id="clipboard" >
+	  				<span class="input-group-btn">
+	  				<button class="btn btn-success" type="button" data-clipboard-target="#clipboard"><span id="clipboard" class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy!</button>
+	  				</span>
+				</div>
+				{%endif%}
+				{# End short URL part.#}
+			</div>
+			<div class="col-sm-2">
+		    </div>
+		    </div>
+
+          <div class="mastfoot">
+          	<div class="inner">
+            	<center><h4>{{number}} Links Shortened Worldwide</h4></center>
+              	<p>Developed by <a href="http://www.ugcoder.com/">Maksudur Rahman Maateen</a>, Core template designed by <a href="https://twitter.com/mdo">Mark Otto</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+
+    <!--Clipboard JavaScript-->
+    <script src="{{url_for('static', filename='js/clipboard.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/custom.min.js')}}"></script>
+  </body>
+</html>
