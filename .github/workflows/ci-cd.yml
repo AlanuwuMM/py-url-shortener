@@ -61,7 +61,7 @@ jobs:
           npx wait-on http://localhost:5000/api/health --timeout 30000
 
       - name: Ejecutar pruebas Selenium (headless en CI)
-        run: python -m pytest tests_e2e/ -v
+        run: python -m pytest tests_e2e/ -v --no-cov
 
       - name: Mostrar logs de Flask si algo falla
         if: failure()
