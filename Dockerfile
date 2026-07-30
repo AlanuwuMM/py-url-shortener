@@ -47,4 +47,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 # Gunicorn en vez del servidor de desarrollo de Flask (run.py con
 # app.run()), como corresponde en producción.
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "run:app"]
+COPY --chmod=755 entrypoint.sh /app/entrypoint.sh
+CMD ["./entrypoint.sh"]

@@ -20,6 +20,9 @@ if __name__ == '__main__':
         if 'syncdb' in sys.argv:
             db.drop_all()
             db.create_all()
-            print('Base de datos sincronizada.')
+            print('Base de datos sincronizada (reiniciada).')
+        elif 'init' in sys.argv:
+            db.create_all()
+            print('Base de datos inicializada (tablas verificadas).')
         else:
-            print('Uso: python manage.py syncdb')
+            print('Uso: python manage.py syncdb | python manage.py init')
